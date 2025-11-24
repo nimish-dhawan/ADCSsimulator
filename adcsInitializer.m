@@ -107,7 +107,7 @@ app.K_wEditField.Value = 10000;
 app.J_wheels.Value = 18389 * 1e-09;           % J_zz Cubespace Bigger Wheels [CW0057]
 
 alpha = 0.005*2;
-T = 5e-3;
+T = 1;
 
 %%
 disp('Parameters set')
