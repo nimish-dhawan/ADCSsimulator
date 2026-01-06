@@ -1,5 +1,5 @@
 function q = CBI2quat(DCM)
-    A = DCM';
+    A = DCM;
     q = zeros(4,1); % [q1; q2; q3; q4] — vector-first
 
     tr = trace(A);
