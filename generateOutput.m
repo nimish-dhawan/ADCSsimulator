@@ -471,12 +471,12 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fprintf('\n--- Orbit Elements ---\n');
-fprintf('a      = %.3f km\n', semimajor_axis);
-fprintf('e      = %.5f\n', e);
-fprintf('i      = %.3f deg\n', inc);
-fprintf('w      = %.3f deg\n', omega);
-fprintf('raan   = %.3f deg\n', raan);
-fprintf('t      = %.3f sec\n', tp);
+fprintf('a      = %.3f km\n', app.AltitudekmEditField.Value+rE);
+fprintf('e      = %.5f\n', app.EccentricityEditField.Value);
+fprintf('i      = %.3f deg\n', app.idegEditField.Value);
+fprintf('w      = %.3f deg\n', app.omegadegEditField.Value);
+fprintf('raan   = %.3f deg\n', app.omegadegEditField.Value);
+fprintf('t      = %.3f sec\n', app.t_psecEditField.Value);
 
 fprintf('\n--- Scenario Epoch ---\n');
 fprintf('(YYYY/MM/DD HH:MIN:SEC):\n  %04d/%02d/%02d  %02d:%02d:%02.3f\n', ...

@@ -26,7 +26,7 @@ function [q_plus, w_plus] = mekf(q_pre, w_meas, dt, s_I, ...
 persistent bias P
 
 if isempty(bias)
-    bias = 1e-09*ones(3,1);
+    bias = 1e-05*ones(3,1);
 end
 
 if isempty(P)
@@ -50,19 +50,41 @@ b_B = b_B/norm(b_B);
 w_hat = w_meas - bias;
 w_hat = w_hat(:);
 w_hat = w_hat(1:3);
-theta = norm(w_hat) * dt;
+
+wn = norm(w_hat);
+W  = skew(w_hat);
 
 % Priori estimates using Eqs. (7.53)-(7.60) given by Crassidis and Junkins
-psi     = sin(0.5*theta)*w_hat / norm(w_hat);
-OMEGA   = [cos(0.5*theta)*eye(3)-skew(psi), psi; -psi', cos(0.5*theta)];
+if wn < 1e-8
+    % Small angle assumption
+    psi = 0.5*dt*w_hat;
+    OMEGA = [eye(3)-skew(psi), psi;
+            -psi',            1];
+else
+    theta = wn*dt;
+    psi   = sin(0.5*theta)*w_hat/wn;
+    OMEGA = [cos(0.5*theta)*eye(3)-skew(psi), psi; -psi', cos(0.5*theta)];
+end
+
 q_minus = OMEGA*q_pre;
 q_minus = q_minus/norm(q_minus);
 b_minus = bias;
 
-Phi11 = eye(3) - (1/norm(w_hat))*skew(w_hat)*sin(theta) + ...
-        (1/norm(w_hat))^2*skew(w_hat)^2*(1-cos(theta));
-Phi12 = -eye(3)*dt - (1/norm(w_hat))^2*skew(w_hat)^3*(theta-sin(theta))...
-         + (1/norm(w_hat))*skew(w_hat)^2*(1-cos(theta));
+if wn < 1e-8
+    % Small angle assumption
+    Phi11 = eye(3) - W*dt;
+    Phi12 = -eye(3)*dt;
+else
+    theta = wn*dt;
+    Phi11 = eye(3) - (W/wn)*sin(theta) + (W*W/wn^2)*(1-cos(theta));
+    Phi12 = -eye(3)*dt - (W*W/wn^3)*(theta-sin(theta)) + (W/wn^2)*(1-cos(theta));
+end
+
+% Phi11 = eye(3) - (1/norm(w_hat))*skew(w_hat)*sin(theta) + ...
+%         (1/norm(w_hat))^2*skew(w_hat)^2*(1-cos(theta));
+% Phi12 = -eye(3)*dt - (1/norm(w_hat))^3*skew(w_hat)^2*(theta-sin(theta))...
+%          + (1/norm(w_hat))^2*skew(w_hat)*(1-cos(theta));
+
 Phi   = [Phi11, Phi12; zeros(3,3), eye(3,3)];
 
 Q11 = (sigma_g^2*dt + (sigma_b^2*dt^3)/3) * eye(3);
