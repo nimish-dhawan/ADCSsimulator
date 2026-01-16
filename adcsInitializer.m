@@ -121,7 +121,7 @@ app.J_wheels.Value = 18389 * 1e-09;           % J_zz Cubespace Bigger Wheels [CW
 
 alpha = 0.005*2;
 T = 1;
-baseRate = 0.5;
+baseRate = dt;
 
 %%
 disp('Parameters set')

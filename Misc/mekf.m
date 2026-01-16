@@ -29,7 +29,7 @@ persistent bias P q
 if isempty(q)
     q    = q_triad;
     bias = 1e-05*ones(3,1);
-    P = 0.000001*eye(6);
+    P    = 0.000001*eye(6);
 end
 
 % Helper functions
@@ -57,14 +57,14 @@ w_sk  = skew(w_hat);
 if wn < 1e-8
     % Small angle assumption
     psi = 0.5*dt*w_hat;
-    OMEGA = [eye(3)-skew(psi), psi; -psi', 1];
+    XI = [eye(3)-skew(psi), psi; -psi', 1];
 else
     theta = wn*dt;
     psi   = sin(0.5*theta)*w_hat/wn;
-    OMEGA = [cos(0.5*theta)*eye(3)-skew(psi), psi; -psi', cos(0.5*theta)];
+    XI = [cos(0.5*theta)*eye(3)-skew(psi), psi; -psi', cos(0.5*theta)];
 end
 
-q_minus = OMEGA*q;
+q_minus = XI*q;
 q_minus = q_minus/norm(q_minus);
 b_minus = bias;
 
