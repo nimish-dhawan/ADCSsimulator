@@ -53,7 +53,10 @@ wW_3    = 0;                        % Wheels initial spin rates in rad/s for whe
 % =======================================================================
 % MAGNETORQUER SETUP
 
-A_m = eye(3);                       % Each magnetorquer aligned with an axis of the s/c
+A_m     = eye(3);           % Each magnetorquer aligned with an axis of the s/c
+% Physical parameters (fictional)
+turns   = 1200;
+ar      = 2.38e-05;         % Cross sectional area of torque rods, m
 
 % =======================================================================
 % SPACECRAFT BUS SETUP
@@ -97,6 +100,9 @@ sigma_B = 0.001;
 % Gyro
 sigma_g = deg2rad(0.1)/sqrt(3600);
 sigma_b = deg2rad(0.04)/3600;
+
+% GPS
+sigmaGPS = 1e-06;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Navigation Filter
