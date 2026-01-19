@@ -9,6 +9,10 @@ RUN ON MATLAB 2024b
 
 **Please ensure you do the following in the correct order:**
 
+Required add-ons:
+1. Aerospace Toolbod
+2. Aerospace Blockset
+
 
 1. Make a copy of this folder and call it "CUonOrbit_ADCS_app_FirstnameLastname" and paste it in your MATLAB environment.
 2. Run "adcsInitializer.m" to set initial conditions and run the GUI.
