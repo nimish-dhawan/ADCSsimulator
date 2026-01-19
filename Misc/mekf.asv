@@ -129,17 +129,6 @@ if inEclipse == 0
     db_plus     = dx_plus(4:6);
     
     P = P_minus * (eye(6) - K*H);
-
-    % % Mahalanobis distance (complex sqrt)
-    % dM          = sqrt(r.'*(S \ r));
-    % isOutlier   = dM > chi2inv(0.997, 3);
-    % 
-    % if isOutlier == 1
-    %     P        = P_minus;
-    %     dth_plus = [0;0;0];
-    %     db_plus  = [0;0;0];
-    % end
-
 else
     % When in eclipse, only use magnetometer data
     R = R(4:6, 4:6); % 3x3 matrix for magnetometer only
@@ -165,16 +154,6 @@ else
     
     P = P_minus * (eye(6) - K*H);
 
-    % % Mahalanobis distance (complex sqrt)
-    % dM          = sqrt(r.'*(S \ r));
-    % isOutlier   = dM > chi2inv(0.997, 3);
-    % 
-    % if isOutlier == 1
-    %     P        = P_minus;
-    %     dth_plus = [0;0;0];
-    %     db_plus  = [0;0;0];
-    % end
-
 end
 
 % ========================================================================
@@ -182,11 +161,23 @@ end
 q = q_minus + 0.5 *...
     [q_minus(4)*eye(3)+skew(q_minus(1:3)); -q_minus(1:3)'] * dth_plus;
 q = q / norm(q);
-q = continuity(q);
 
 q_est = q;
 bias  = b_minus + db_plus;
 w_est = w_meas - bias;
 was   = inEclipse;
+
+
+% if isOutlier == 1
+%     P = P_minus;
+%     q = q_minus;
+%     bias = b_minus;
+% else
+%     q = q_minus + 0.5 *...
+%         [q_minus(4)*eye(3)+skew(q_minus(1:3)); -q_minus(1:3)'] * dth_plus;
+%     q = q / norm(q);
+%     q_est = q;
+%     bias  = b_minus + db_plus;
+% end
 
 end

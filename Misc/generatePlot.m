@@ -170,7 +170,7 @@ fprintf('a      = %.3f km\n', app.AltitudekmEditField.Value+rE);
 fprintf('e      = %.5f\n', app.EccentricityEditField.Value);
 fprintf('i      = %.3f deg\n', app.idegEditField.Value);
 fprintf('w      = %.3f deg\n', app.omegadegEditField.Value);
-fprintf('raan   = %.3f deg\n', app.omegadegEditField.Value);
+fprintf('raan   = %.3f deg\n', app.OmegadegEditField.Value);
 fprintf('t      = %.3f sec\n', app.t_psecEditField.Value);
 
 fprintf('\n--- Scenario Epoch ---\n');

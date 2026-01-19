@@ -52,7 +52,9 @@ orbanm = animatedline(ax,'LineWidth',1);
 
 scale = 1000;   % km axis length
 i = 1;
-O = [simOut.X_ECI(:,:,i) simOut.Y_ECI(:,:,i) simOut.Z_ECI(:,:,i)];
+O = [simOut.dataPacket.x_I.Data(i), ...
+     simOut.dataPacket.y_I.Data(i), ...
+     simOut.dataPacket.z_I.Data(i)];
 
 hx = quiver3(ax,O(1),O(2),O(3), scale*Fb_att(1,1,i),scale*Fb_att(2,1,i),scale*Fb_att(3,1,i), ...
     0,'r','LineWidth',2,'AutoScale','off');
@@ -140,13 +142,15 @@ end
 % Plot functions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function wBplot(simOut, wb, i, t)
-    addpoints(wb(1), t(i), simOut.w1_est(:,:,i))
-    addpoints(wb(2), t(i), simOut.w2_est(:,:,i))
-    addpoints(wb(3), t(i), simOut.w3_est(:,:,i))
+    addpoints(wb(1), t(i), simOut.w1_est(i))
+    addpoints(wb(2), t(i), simOut.w2_est(i))
+    addpoints(wb(3), t(i), simOut.w3_est(i))
 end
 
 function orbPlot(simOut, Fb_att, scale, i, hx, hy, hz, orbanm)
-    O = [simOut.X_ECI(:,:,i) simOut.Y_ECI(:,:,i) simOut.Z_ECI(:,:,i)];
+    O = [simOut.dataPacket.x_I.Data(:,:,i), ...
+     simOut.dataPacket.y_I.Data(:,:,i), ...
+     simOut.dataPacket.z_I.Data(:,:,i)];
 
     set(hx,'XData',O(1),'YData',O(2),'ZData',O(3), ...
            'UData',scale*Fb_att(1,1,i),'VData',scale*Fb_att(2,1,i),'WData',scale*Fb_att(3,1,i));
