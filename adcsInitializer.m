@@ -45,15 +45,16 @@ m = 4;                              % Spacecraft mass in kg
 % =======================================================================
 % WHEELS SETUP
 
-A_w     = eye(3);                   % Each wheel aligned with an axis of the s/c     
+A_w     = eye(3); % Each wheel aligned with an axis of the s/c     
 wW_1    = 0;
 wW_2    = 0;
-wW_3    = 0;                        % Wheels initial spin rates in rad/s for wheel 1, 2 and 3 respectively
+wW_3    = 0;      % Wheels initial spin rates in rad/s for wheel 1, 2 and 3 respectively
 
 % =======================================================================
 % MAGNETORQUER SETUP
 
 A_m     = eye(3);           % Each magnetorquer aligned with an axis of the s/c
+
 % Physical parameters (fictional)
 turns   = 1200;
 ar      = 2.38e-05;         % Cross sectional area of torque rods, m
@@ -109,12 +110,6 @@ sigmaGPS = 1e-06;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dt = 0.5;
 
-Q11 = (sigma_g^2*dt + sigma_b^2*dt^3/3) * eye(3);
-Q12 = -(sigma_b^2*dt^2/2) * eye(3);
-Q22 = sigma_g^2*dt * eye(3);
-% Q   = [Q11, Q12; Q12, Q22];
-Q = 1e-05 * eye(7);
-
 R = blkdiag(sigma_S^2*eye(3), sigma_B^2*eye(3));
 
 %%
@@ -122,8 +117,8 @@ R = blkdiag(sigma_S^2*eye(3), sigma_B^2*eye(3));
 % Custom Parameters (Override the GUI)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 app.K_wEditField.Value = 10000;
-% app.J_wheels.Value = 3.81e-05;
-app.J_wheels.Value = 18389 * 1e-09;           % J_zz Cubespace Bigger Wheels [CW0057]
+app.J_wheels.Value = 3.81e-05;
+% app.J_wheels.Value = 18389 * 1e-09;           % J_zz Cubespace Bigger Wheels [CW0057]
 
 alpha = 0.005*2;
 T = 1;

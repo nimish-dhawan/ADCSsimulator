@@ -4,7 +4,7 @@
 % Input(s)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % q_triad [4x1]: TRIAD attitude determination
-% w_meas  [3x1]: Previous step measured rate (or current??)
+% w_meas  [3x1]: Previous step measured rate 
 % dt      [1x1]: Discrete time step
 % s_I     [3x1]: Calculated Sun direction vector (ECI)
 % s_B     [3x1]: Measured Sun direction vector (Body fixed)
@@ -33,7 +33,7 @@ if isempty(q)
     was  = 0;
 end
 
-% Logic to update quaternions after exiting eclipse
+% Logic to update attitude after exiting eclipse
 if (was == 1) && (inEclipse == 0)
     q = q_triad;
 end
@@ -43,11 +43,8 @@ quat2C = @(q) (q(4)^2-q(1:3)'*q(1:3))*eye(3) + 2*(q(1:3)*q(1:3)')...
                - 2*q(4)*skew(q(1:3));
 
 % Forcing unit vectors
-% Only find unit vectors for sun sensor when not in eclipse
-if inEclipse == 0
-    s_I = s_I/norm(s_I);
-    s_B = s_B/norm(s_B);
-end
+s_I = s_I/norm(s_I);
+s_B = s_B/norm(s_B);
 b_I = b_I/norm(b_I);
 b_B = b_B/norm(b_B);
 
@@ -131,8 +128,9 @@ if inEclipse == 0
     P = P_minus * (eye(6) - K*H);
 
     % % Mahalanobis distance (complex sqrt)
-    % dM          = sqrt(r.'*(S \ r));
-    % isOutlier   = dM > chi2inv(0.997, 3);
+    % dM2        = r.'*(S \ r);
+    % dM         = sqrt(dM2);
+    % isOutlier  = dM > chi2inv(0.997, length(r));
     % 
     % if isOutlier == 1
     %     P        = P_minus;
@@ -166,8 +164,9 @@ else
     P = P_minus * (eye(6) - K*H);
 
     % % Mahalanobis distance (complex sqrt)
-    % dM          = sqrt(r.'*(S \ r));
-    % isOutlier   = dM > chi2inv(0.997, 3);
+    % dM2        = r.'*(S \ r);
+    % dM         = sqrt(dM2);
+    % isOutlier  = dM > chi2inv(0.997, length(r));
     % 
     % if isOutlier == 1
     %     P        = P_minus;
