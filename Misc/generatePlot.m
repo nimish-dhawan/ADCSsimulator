@@ -39,7 +39,7 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('\omega_z [rad/s]')
-
+theme(gcf,"light")
 
 % Plotting spacecraft attitude
 figure()
@@ -81,7 +81,7 @@ subplot(4,1,4)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('q_4')
-
+theme(gcf,"light")
 
 % Wheels angular momentum
 figure()
@@ -107,7 +107,7 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('h_{b,3} [N.m.s]')
-
+theme(gcf,"light")
 
 % Wheels angular velocity
 figure()
@@ -133,7 +133,7 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('\omega_{b,3} [rad/s]')
-
+theme(gcf,"light")
 
 % Command torque
 figure()
@@ -159,6 +159,7 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('T_{b,3} [N·m]')
+theme(gcf,"light")
 
 % Command current for torque rods
 figure()
@@ -184,6 +185,7 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('I_{rod,3} [A]')
+theme(gcf,"light")
 
 % Torque produced by the rod
 figure()
@@ -209,6 +211,7 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('T_{rod,3} [N·m]')
+theme(gcf,"light")
 
 
 end
