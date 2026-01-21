@@ -5,15 +5,16 @@ Copyright
 Nimish Dhawan 2025
 ========================================================
 
-RUN ON MATLAB 2024b
+RUN ON MATLAB 2025b
 
 **Please ensure you do the following in the correct order:**
 
 
 1. Make a copy of this folder and call it "CUonOrbit_ADCS_app_FirstnameLastname" and paste it in your MATLAB environment.
 2. Run "adcsInitializer.m" to set initial conditions and run the GUI.
-3. Once the GUI loads, configure the simulation parameters under the "Setup" panel. 
-4. The "Setup" panel allows you to:
+3. The GUI is stable for dark mode only. If your MATLAB is on light mode, I'd recommend changing.
+4. Once the GUI loads, configure the simulation parameters under the "Setup" panel. 
+5. The "Setup" panel allows you to:
 	- Define the pointing mode
 	- Toggle torque free environment 
 	- Tune controller
@@ -22,11 +23,11 @@ RUN ON MATLAB 2024b
 	- Set simulation runtime
 	- It is not recommended to not change S/C bus parameters
 
-5. Press "Load Simulink Model" to load in the model. It should open the Simulink file as a new window.
-6. Once the model is up, press "Run Simulation" to run the simulation. 
-7. Animation tab lets you view the results and see the motion of the spacecraft.
+6. Press "Load Simulink Model" to load in the model. It should open the Simulink file as a new window.
+7. Once the model is up, press "Run Simulation" to run the simulation. 
+8. Animation tab lets you view the results and see the motion of the spacecraft.
 9. The vertical slider allows you to speed up or down the playback. Horizontal scrubber allows you to go back and forth the animation.
-10. Output tab will allow you to plot MATLAB figures for the simulation data and generate a '.a' file for STK.
+11. Output tab will allow you to plot MATLAB figures for the simulation data and generate a '.a' file for STK.
 
 Lastly please do not copy paste the code you see here for any projects outside the club (especially for school courses). 
 May the force be with you (because you are going to need it). 
@@ -36,6 +37,10 @@ Feel free to reach out to me at nimishdhawan@cmail.carleton.ca or on discord @CU
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 CHANGELOG
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+V.2 Release 4:
+1. Works on MATLAB 2025b now.
+2. GUI only stable for dark mode.
+
 V.2 Release 3: 
 1. WMM 2025 functional now. COF file added to the package. (It makes the simulation very slow so please bear with it)
 2. Fixed Roll-Pitch-Yaw angles for Spacecraft Attitude and Pointing Error.

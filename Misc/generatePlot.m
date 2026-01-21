@@ -6,15 +6,14 @@ t = simOut.tout;
 
 % Creating a root plot window
 
-
 if plot_graph == true
 %%
 % Plotting angular velocity
-figure(1)
+figure()
 formatfig()
 
 subplot(3,1,1)
-    plot(t, simOut.dataPacket.wsc1_est.Data, '-k')
+    plot(t, simOut.dataPacket.wsc1_est.Data, '-b')
     hold on
     plot(t, simOut.dataPacket.wsc1.Data, '--r')
     grid on
@@ -24,7 +23,7 @@ subplot(3,1,1)
     ylabel('\omega_x [rad/s]')
 
 subplot(3,1,2)
-    plot(t, simOut.dataPacket.wsc2_est.Data, '-k')
+    plot(t, simOut.dataPacket.wsc2_est.Data, '-b')
     hold on
     plot(t, simOut.dataPacket.wsc2.Data, '--r')
     grid on
@@ -33,7 +32,7 @@ subplot(3,1,2)
     ylabel('\omega_y [rad/s]')
 
 subplot(3,1,3)
-    plot(t, simOut.dataPacket.wsc3_est.Data, '-k')
+    plot(t, simOut.dataPacket.wsc3_est.Data, '-b')
     hold on
     plot(t, simOut.dataPacket.wsc3.Data, '--r')
     grid on
@@ -43,11 +42,11 @@ subplot(3,1,3)
 
 
 % Plotting spacecraft attitude
-figure(2)
+figure()
 formatfig()
 
 subplot(4,1,1)
-    plot(t, simOut.dataPacket.q1_est.Data, '-k')
+    plot(t, simOut.dataPacket.q1_est.Data, '-b')
     hold on
     plot(t, simOut.dataPacket.q1.Data, '--r')
     grid on
@@ -57,7 +56,7 @@ subplot(4,1,1)
     ylabel('q_1')
 
 subplot(4,1,2)
-    plot(t, simOut.dataPacket.q2_est.Data, '-k')
+    plot(t, simOut.dataPacket.q2_est.Data, '-b')
     hold on
     plot(t, simOut.dataPacket.q2.Data, '--r')
     grid on
@@ -66,7 +65,7 @@ subplot(4,1,2)
     ylabel('q_2')
 
 subplot(4,1,3)
-    plot(t, simOut.dataPacket.q3_est.Data, '-k')
+    plot(t, simOut.dataPacket.q3_est.Data, '-b')
     hold on
     plot(t, simOut.dataPacket.q3.Data, '--r')
     grid on
@@ -75,7 +74,7 @@ subplot(4,1,3)
     ylabel('q_3')
 
 subplot(4,1,4)
-    plot(t, simOut.dataPacket.q4_est.Data, '-k')
+    plot(t, simOut.dataPacket.q4_est.Data, '-b')
     hold on
     plot(t, simOut.dataPacket.q4.Data, '--r')
     grid on
@@ -85,127 +84,127 @@ subplot(4,1,4)
 
 
 % Wheels angular momentum
-figure(3)
+figure()
 formatfig()
 
 subplot(3,1,1)
-    plot(t, simOut.dataPacket.h1_wheels.Data, '-k')
+    plot(t, simOut.dataPacket.h1_wheels.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('h_{w,1} [N.m.s]')
+    ylabel('h_{b,1} [N.m.s]')
 
 subplot(3,1,2)
-    plot(t, simOut.dataPacket.h2_wheels.Data, '-k')
+    plot(t, simOut.dataPacket.h2_wheels.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('h_{w,2} [N.m.s]')
+    ylabel('h_{b,2} [N.m.s]')
 
 subplot(3,1,3)
-    plot(t, simOut.dataPacket.h3_wheels.Data, '-k')
+    plot(t, simOut.dataPacket.h3_wheels.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('h_{w,3} [N.m.s]')
+    ylabel('h_{b,3} [N.m.s]')
 
 
 % Wheels angular velocity
-figure(4)
+figure()
 formatfig()
 
 subplot(3,1,1)
-    plot(t, simOut.dataPacket.w1_wheels.Data, '-k')
+    plot(t, simOut.dataPacket.w1_wheels.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('\omega_{w,1} [rad/s]')
+    ylabel('\omega_{b,1} [rad/s]')
 
 subplot(3,1,2)
-    plot(t, simOut.dataPacket.w2_wheels.Data, '-k')
+    plot(t, simOut.dataPacket.w2_wheels.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('\omega_{w,2} [rad/s]')
+    ylabel('\omega_{b,2} [rad/s]')
 
 subplot(3,1,3)
-    plot(t, simOut.dataPacket.w3_wheels.Data, '-k')
+    plot(t, simOut.dataPacket.w3_wheels.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('\omega_{w,3} [rad/s]')
+    ylabel('\omega_{b,3} [rad/s]')
 
 
 % Command torque
-figure(5)
+figure()
 formatfig()
 
 subplot(3,1,1)
-    plot(t, simOut.dataPacket.T1_cmd.Data, '-k')
+    plot(t, simOut.dataPacket.T1_cmd.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('T_{w,1} [N·m]')
+    ylabel('T_{b,1} [N·m]')
 
 subplot(3,1,2)
-    plot(t, simOut.dataPacket.T2_cmd.Data, '-k')
+    plot(t, simOut.dataPacket.T2_cmd.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('T_{w,2} [N·m]')
+    ylabel('T_{b,2} [N·m]')
 
 subplot(3,1,3)
-    plot(t, simOut.dataPacket.T3_cmd.Data, '-k')
+    plot(t, simOut.dataPacket.T3_cmd.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('T_{w,3} [N·m]')
+    ylabel('T_{b,3} [N·m]')
 
 % Command current for torque rods
-figure(5)
+figure()
 formatfig()
 
 subplot(3,1,1)
-plot(t, simOut.dataPacket.I_rod1.Data, '-k')
+plot(t, simOut.dataPacket.I_rod1.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('I_{rod,1} [A]')
 
 subplot(3,1,2)
-    plot(t, simOut.dataPacket.I_rod2.Data, '-k')
+    plot(t, simOut.dataPacket.I_rod2.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('I_{rod,2} [A]')
 
 subplot(3,1,3)
-    plot(t, simOut.dataPacket.I_rod3.Data, '-k')
+    plot(t, simOut.dataPacket.I_rod3.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('I_{rod,3} [A]')
 
 % Torque produced by the rod
-figure(6)
+figure()
 formatfig()
 
 subplot(3,1,1)
-plot(t, simOut.dataPacket.T_rod1.Data, '-k')
+plot(t, simOut.dataPacket.T_rod1.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('T_{rod,1} [N·m]')
 
 subplot(3,1,2)
-    plot(t, simOut.dataPacket.T_rod2.Data, '-k')
+    plot(t, simOut.dataPacket.T_rod2.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('T_{rod,2} [N·m]')
 
 subplot(3,1,3)
-    plot(t, simOut.dataPacket.T_rod3.Data, '-k')
+    plot(t, simOut.dataPacket.T_rod3.Data, '-b')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
@@ -222,7 +221,7 @@ fprintf('\n--- Orbit Elements ---\n');
 fprintf('a      = %.3f km\n', app.AltitudekmEditField.Value+rE);
 fprintf('e      = %.5f\n', app.EccentricityEditField.Value);
 fprintf('i      = %.3f deg\n', app.idegEditField.Value);
-fprintf('w      = %.3f deg\n', app.omegadegEditField.Value);
+fprintf('b      = %.3f deg\n', app.omegadegEditField.Value);
 fprintf('raan   = %.3f deg\n', app.OmegadegEditField.Value);
 fprintf('t      = %.3f sec\n', app.t_psecEditField.Value);
 
