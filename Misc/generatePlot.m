@@ -4,6 +4,9 @@ close all
 
 t = simOut.tout;
 
+% Creating a root plot window
+
+
 if plot_graph == true
 %%
 % Plotting angular velocity
@@ -13,7 +16,7 @@ formatfig()
 subplot(3,1,1)
     plot(t, simOut.dataPacket.wsc1_est.Data, '-k')
     hold on
-    plot(t, simOut.dataPacket.wsc1.Data, '-r')
+    plot(t, simOut.dataPacket.wsc1.Data, '--r')
     grid on
     xlim([t(1) t(end)])
     legend('Estimate', 'Ground Truth')
@@ -23,7 +26,7 @@ subplot(3,1,1)
 subplot(3,1,2)
     plot(t, simOut.dataPacket.wsc2_est.Data, '-k')
     hold on
-    plot(t, simOut.dataPacket.wsc2.Data, '-r')
+    plot(t, simOut.dataPacket.wsc2.Data, '--r')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
@@ -32,7 +35,7 @@ subplot(3,1,2)
 subplot(3,1,3)
     plot(t, simOut.dataPacket.wsc3_est.Data, '-k')
     hold on
-    plot(t, simOut.dataPacket.wsc3.Data, '-r')
+    plot(t, simOut.dataPacket.wsc3.Data, '--r')
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
@@ -157,6 +160,56 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('T_{w,3} [N·m]')
+
+% Command current for torque rods
+figure(5)
+formatfig()
+
+subplot(3,1,1)
+plot(t, simOut.dataPacket.I_rod1.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('I_{rod,1} [A]')
+
+subplot(3,1,2)
+    plot(t, simOut.dataPacket.I_rod2.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('I_{rod,2} [A]')
+
+subplot(3,1,3)
+    plot(t, simOut.dataPacket.I_rod3.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('I_{rod,3} [A]')
+
+% Torque produced by the rod
+figure(6)
+formatfig()
+
+subplot(3,1,1)
+plot(t, simOut.dataPacket.T_rod1.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('T_{rod,1} [N·m]')
+
+subplot(3,1,2)
+    plot(t, simOut.dataPacket.T_rod2.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('T_{rod,2} [N·m]')
+
+subplot(3,1,3)
+    plot(t, simOut.dataPacket.T_rod3.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('T_{rod,3} [N·m]')
 
 
 end
