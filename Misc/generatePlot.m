@@ -2,11 +2,11 @@
 clc
 close all
 
-t = simOut.tout;
+t = app.simOut.tout;
 
 % Creating a root plot window
 
-if plot_graph == true
+if plot_graphs == true
 %%
 % Plotting angular velocity
 figure()
@@ -223,10 +223,10 @@ end
 fprintf('\n--- Orbit Elements ---\n');
 fprintf('a      = %.3f km\n', app.AltitudekmEditField.Value+rE);
 fprintf('e      = %.5f\n', app.EccentricityEditField.Value);
-fprintf('i      = %.3f deg\n', app.idegEditField.Value);
-fprintf('b      = %.3f deg\n', app.omegadegEditField.Value);
-fprintf('raan   = %.3f deg\n', app.OmegadegEditField.Value);
-fprintf('t      = %.3f sec\n', app.t_psecEditField.Value);
+fprintf('i      = %.3f deg\n', app.InclinationdegEditField.Value);
+fprintf('w      = %.3f deg\n', app.ArgumentofPergieedegEditField.Value);
+fprintf('raan   = %.3f deg\n', app.RAANdegEditField.Value);
+fprintf('t      = %.3f sec\n', app.TimeofPerigeePassagesecEditField.Value);
 
 fprintf('\n--- Scenario Epoch ---\n');
 fprintf('(YYYY/MM/DD HH:MIN:SEC):\n  %04d/%02d/%02d  %02d:%02d:%02.3f\n', ...

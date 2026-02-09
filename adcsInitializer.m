@@ -36,10 +36,6 @@ mag_moment  = [0.005; 0.005; 0.005];           % Magnetic Dipole
 % =======================================================================
 % INITIAL CONDITIONS
 
-% q1_ini = 0.386286;
-% q2_ini = -0.591720;
-% q3_ini = 0.309974;
-% q4_ini = 0.636056;
 m = 4;                              % Spacecraft mass in kg
 
 % =======================================================================
@@ -72,7 +68,7 @@ I_xy = 0;
 I_xz = 0;
 I_yz = 0;
 
-J_body = [ I_xx  I_xy  I_xz;                                        % Spacecraft inertia matrix in kg m2
+J_body  = [ I_xx  I_xy  I_xz;                                        % Spacecraft inertia matrix in kg m2
            I_xy  I_yy  I_yz;
            I_xz  I_yz  I_zz ];
 n_list  = [1 0 0; 0 1 0; 0 0 1; -1 0 0; 0 -1 0; 0 0 -1];            % Surface normal vectors
@@ -96,7 +92,7 @@ P_0 = 0.000000001 * eye(7); % Originally 0.0000001
 sigma_S = deg2rad(0.01);
 
 % Magnetometer
-sigma_B = 0.001;
+sigma_B = 0.0001;
 
 % Gyro
 sigma_g = deg2rad(0.1)/sqrt(3600);
@@ -119,6 +115,16 @@ R = blkdiag(sigma_S^2*eye(3), sigma_B^2*eye(3));
 app.K_wEditField.Value = 10000;
 app.J_wheels.Value = 3.81e-05;
 % app.J_wheels.Value = 18389 * 1e-09;           % J_zz Cubespace Bigger Wheels [CW0057]
+
+% app.q1_ini.Value = 0;
+% app.q2_ini.Value = 0;
+% app.q3_ini.Value = 0;
+% app.q4_ini.Value = 1;
+
+app.q1_ini.Value = 0.386286;
+app.q2_ini.Value = -0.591720;
+app.q3_ini.Value = 0.309974;
+app.q4_ini.Value = 0.636056;
 
 alpha = 0.005*2;
 T = 1;
