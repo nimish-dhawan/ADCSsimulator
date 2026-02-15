@@ -11,14 +11,13 @@ t = simOut.tout;
 %%
 % Plotting angular velocity
 figure()
-
 subplot(3,1,1)
     plot(t, simOut.dataPacket.wsc1_est.Data, '-k')
     hold on
     plot(t, simOut.dataPacket.wsc1.Data, '--r')
     grid on
     xlim([t(1) t(end)])
-    legend('Estimate', 'Ground Truth', 'Location','best')
+    legend('Estimate', 'Ground Truth', 'Location','northeast','Orientation','horizontal')
     ylabel('\omega_x [rad/s]')
 
 subplot(3,1,2)
@@ -38,20 +37,19 @@ subplot(3,1,3)
     xlabel('Time [s]')
     ylabel('\omega_z [rad/s]')
 theme(gcf,"light")
-formatfig(0.4,0.4)
+
 fontname('Times New Roman');
 fontsize(9,"points");
 
 % Plotting spacecraft attitude
 figure()
-
 subplot(4,1,1)
     plot(t, simOut.dataPacket.q1_est.Data, '-k')
     hold on
     plot(t, simOut.dataPacket.q1.Data, '--r')
     grid on
     xlim([t(1) t(end)])
-    legend('Estimate', 'Ground Truth', 'Location','best')
+    legend('Estimate', 'Ground Truth', 'Location','best','Orientation','horizontal')
     ylabel('q_1')
 
 subplot(4,1,2)
@@ -79,14 +77,12 @@ subplot(4,1,4)
     xlabel('Time [s]')
     ylabel('q_4')
 theme(gcf,"light")
-formatfig(0.4,0.5)
+
 fontname('Times New Roman');
 fontsize(9,"points");
 
 % Wheels angular momentum
 figure()
-formatfig(0.4,0.4)
-
 subplot(3,1,1)
     plot(t, simOut.dataPacket.h1_wheels.Data, '-k')
     grid on
@@ -111,7 +107,6 @@ fontsize(9,"points");
 
 % Wheels angular velocity
 figure()
-formatfig(0.4,0.4)
 
 subplot(3,1,1)
     plot(t, simOut.dataPacket.w1_wheels.Data, '-k')
@@ -135,10 +130,11 @@ subplot(3,1,3)
     ylabel('\omega_{b,3} [rad/s]')
 theme(gcf,"light")
 
+fontname('Times New Roman');
+fontsize(9,"points");
+
 % Command torque
 figure()
-formatfig(0.4,0.4)
-
 subplot(3,1,1)
     plot(t, simOut.dataPacket.T1_cmd.Data, '-k')
     grid on
@@ -161,10 +157,11 @@ subplot(3,1,3)
     ylabel('T_{b,3} [N·m]')
 theme(gcf,"light")
 
+fontname('Times New Roman');
+fontsize(9,"points");
+
 % Command current for torque rods
 figure()
-formatfig(0.4,0.4)
-
 subplot(3,1,1)
 plot(t, simOut.dataPacket.I_rod1.Data, '-k')
     grid on
@@ -187,10 +184,11 @@ subplot(3,1,3)
     ylabel('I_{rod,3} [A]')
 theme(gcf,"light")
 
+fontname('Times New Roman');
+fontsize(9,"points");
+
 % Torque produced by the rod
 figure()
-formatfig(0.4,0.4)
-
 subplot(3,1,1)
 plot(t, simOut.dataPacket.T_rod1.Data, '-k')
     grid on
@@ -213,6 +211,8 @@ subplot(3,1,3)
     ylabel('T_{rod,3} [N·m]')
 theme(gcf,"light")
 
+fontname('Times New Roman');
+fontsize(9,"points");
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Display Output
@@ -232,11 +232,24 @@ fprintf('(YYYY/MM/DD HH:MIN:SEC):\n  %04d/%02d/%02d  %02d:%02d:%02.3f\n', ...
 
 
 fprintf('\n--- Simulation Parameters ---\n');
-fprintf('K_d                        = %.4f\n', app.K_d);
-fprintf('K_p                        = %.4f\n', app.K_p);
-fprintf('K_w                        = %.0f\n', app.K_w);
-fprintf('Initial s/c angular rate   = [%.4f, %.4f, %.4f] deg/s\n', [app.wB_1; app.wB_2; app.wB_3]);
-fprintf('Initial quaternion         = [%.4f, %.4f, %.4f, %.4f]\n', [app.q1_ini; app.q2_ini; app.q3_ini; app.q4_ini]);
+fprintf('K_d =\n');
+fprintf('  %.6f  %.6f  %.6f\n', app.K_d(1,1), app.K_d(1,2), app.K_d(1,3));
+fprintf('  %.6f  %.6f  %.6f\n', app.K_d(2,1), app.K_d(2,2), app.K_d(2,3));
+fprintf('  %.6f  %.6f  %.6f\n', app.K_d(3,1), app.K_d(3,2), app.K_d(3,3));
+
+fprintf('K_p =\n');
+fprintf('  %.6f  %.6f  %.6f\n', app.K_p(1,1), app.K_p(1,2), app.K_p(1,3));
+fprintf('  %.6f  %.6f  %.6f\n', app.K_p(2,1), app.K_p(2,2), app.K_p(2,3));
+fprintf('  %.6f  %.6f  %.6f\n', app.K_p(3,1), app.K_p(3,2), app.K_p(3,3));
+
+fprintf('K_w = %.0f\n', app.K_w);
+
+fprintf('\nInitial s/c angular rate   = [%.4f, %.4f, %.4f] deg/s\n',...
+        [app.wB_1; app.wB_2; app.wB_3]);
+
+fprintf('Initial quaternion         = [%.4f, %.4f, %.4f, %.4f]\n',...
+        [app.q1_ini; app.q2_ini; app.q3_ini; app.q4_ini]);
+
 fprintf('Spacecraft inertia (kg/m2) =\n');
 fprintf('  %.4f  %.4f  %.4f\n', app.J_body(1,1), app.J_body(1,2), app.J_body(1,3));
 fprintf('  %.4f  %.4f  %.4f\n', app.J_body(2,1), app.J_body(2,2), app.J_body(2,3));
