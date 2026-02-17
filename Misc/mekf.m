@@ -25,13 +25,20 @@ function [q_est, w_est] = mekf(q_triad, w_meas, dt, s_I, ...
 
 persistent bias P q was
 
+
 % Initializing parameters
 if isempty(q)
     q    = q_triad;
     bias = 1e-05*ones(3,1);
     P    = 0.000001*eye(6);
-    was  = 0;
+    was  = 0; 
 end
+
+r = zeros(6,1);
+h = zeros(6,1);
+H = zeros(6,6);
+z = zeros(6,1);
+K = zeros(6,6);
 
 % Logic to update attitude after exiting eclipse
 if (was == 1) && (inEclipse == 0)
@@ -60,8 +67,7 @@ wn    = norm(w_hat);
 w_sk  = skew(w_hat);
 
 % Priori estimates using Eqs. (7.53)-(7.60) given by Crassidis and Junkins
-if wn < 1e-8
-    % Small angle assumption
+if wn < 1e-8 % Small angle assumption
     psi = 0.5*dt*w_hat;
     XI = [eye(3)-skew(psi), psi; -psi', 1];
 else
@@ -74,8 +80,7 @@ q_minus = XI*q;
 q_minus = q_minus/norm(q_minus);
 b_minus = bias;
 
-if wn < 1e-8
-    % Small angle assumption
+if wn < 1e-8 % Small angle assumption
     Phi11 = eye(3) - w_sk*dt;
     Phi12 = -eye(3)*dt;
 else
@@ -86,8 +91,7 @@ else
             + (w_sk/wn^2)*(1-cos(theta));
 end
 
-Phi   = [Phi11, Phi12; zeros(3,3), eye(3,3)];
-
+Phi = [Phi11, Phi12; zeros(3,3), eye(3,3)];
 Q11 = (sigma_g^2*dt + (sigma_b^2*dt^3)/3) * eye(3);
 Q12 = -(sigma_b^2*dt^2/2) * eye(3);
 Q22 = sigma_b^2*dt * eye(3);
@@ -100,8 +104,7 @@ P_minus = Phi*P*Phi' + G*Q*G';
 % Correction
 C_BI = quat2C(q_minus);
 
-if inEclipse == 0 
-    % When not in eclipse, use both sensor data
+if inEclipse == 0 % When not in eclipse, use both sensor data
     % Predicted Measurement
     h = [C_BI*s_I;
          C_BI*b_I];
@@ -138,30 +141,28 @@ if inEclipse == 0
     %     db_plus  = [0;0;0];
     % end
 
-else
-    % When in eclipse, only use magnetometer data
-    R = R(4:6, 4:6); % 3x3 matrix for magnetometer only
+else % When in eclipse, only use magnetometer data
     % Predicted Measurement
-    h = C_BI*b_I;
+    h(4:6) = C_BI*b_I;
     
     % Measurement Jacobian
-    H = [skew(C_BI*b_I), zeros(3,3)];
+    H(4:6,:) = [skew(C_BI*b_I), zeros(3,3)];
     
     % Measurement
-    z = b_B;
+    z(4:6) = b_B;
     
     % Residual
-    r = z - h;
+    r(4:6) = z(4:6) - h(4:6);
     
     % Kalman Gain
-    S = H*P_minus*H' + R;
-    K = (P_minus * H') / S;
+    S = H(4:6,:)*P_minus*H(4:6,:)' + R(4:6, 4:6);
+    K(:,4:6) = (P_minus * H(4:6,:)') / S;
     
-    dx_plus     = K*r;
+    dx_plus     = K(:,4:6)*r(4:6);
     dth_plus    = dx_plus(1:3);
     db_plus     = dx_plus(4:6);
     
-    P = P_minus * (eye(6) - K*H);
+    P = P_minus * (eye(6) - K(:,4:6)*H(4:6,:));
 
     % % Mahalanobis distance (complex sqrt)
     % dM2        = r.'*(S \ r);
@@ -175,6 +176,7 @@ else
     % end
 
 end
+
 
 % ========================================================================
 % Reset
