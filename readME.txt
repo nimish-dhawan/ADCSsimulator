@@ -9,6 +9,9 @@ RUN ON MATLAB 2025b
 
 **Please ensure you do the following in the correct order:**
 
+REQUIRED TOOLBOX:
+	- Aerospace Toolbox
+	- Aerospace Blockset
 
 1. Make a copy of this folder and call it "CUonOrbit_ADCS_app_FirstnameLastname" and paste it in your MATLAB environment.
 2. In the command window enter "ADCS_gui". This command loads up the GUI.
