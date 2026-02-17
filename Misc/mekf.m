@@ -25,6 +25,7 @@ function [q_est, w_est] = mekf(q_triad, w_meas, dt, s_I, ...
 
 persistent bias P q was
 
+
 % Initializing parameters
 if isempty(q)
     q    = q_triad;
