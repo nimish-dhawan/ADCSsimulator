@@ -20,11 +20,12 @@
 % q_est [4x1]: Current step postiori quaternion estimate
 % w_est [3x1]: Current step postiori angular rate estimate
 
-function [q_est, w_est] = mekf(q_triad, w_meas, dt, s_I, ...
+function [estimate] = mekf(q_triad, w_meas, dt, s_I, ...
                             b_I, s_B, b_B, R, sigma_g, sigma_b, inEclipse)
 
 persistent bias P q was
 
+estimate = struct;
 
 % Initializing parameters
 if isempty(q)
@@ -180,14 +181,17 @@ end
 
 % ========================================================================
 % Reset
-q = q_minus + 0.5 *...
-    [q_minus(4)*eye(3)+skew(q_minus(1:3)); -q_minus(1:3)'] * dth_plus;
-q = q / norm(q);
-q = continuity(q);
-
-q_est = q;
+q     = q_minus + 0.5 *...
+        [q_minus(4)*eye(3)+skew(q_minus(1:3));
+        -q_minus(1:3)'] * dth_plus;
+q     = q / norm(q);
+q     = continuity(q);
 bias  = b_minus + db_plus;
-w_est = w_meas - bias;
 was   = inEclipse;
+
+estimate.q_est = q;
+
+estimate.w_est = w_meas - bias;
+
 
 end
