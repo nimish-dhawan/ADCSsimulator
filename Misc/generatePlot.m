@@ -39,7 +39,7 @@ subplot(3,1,3)
 theme(gcf,"light")
 
 fontname('Times New Roman');
-fontsize(9,"points");
+fontsize(10,"points");
 
 % Plotting spacecraft attitude
 figure()
@@ -49,7 +49,7 @@ subplot(4,1,1)
     plot(t, simOut.dataPacket.q1.Data, '--r')
     grid on
     xlim([t(1) t(end)])
-    legend('Estimate', 'Ground Truth', 'Location','best','Orientation','horizontal')
+    legend('Estimate', 'Ground Truth', 'Location','northeast','Orientation','horizontal')
     ylabel('q_1')
 
 subplot(4,1,2)
@@ -79,7 +79,7 @@ subplot(4,1,4)
 theme(gcf,"light")
 
 fontname('Times New Roman');
-fontsize(9,"points");
+fontsize(10,"points");
 
 % Wheels angular momentum
 figure()
@@ -103,7 +103,7 @@ subplot(3,1,3)
     ylabel('h_{b,3} [N.m.s]')
 theme(gcf,"light")
 fontname('Times New Roman');
-fontsize(9,"points");
+fontsize(10,"points");
 
 % Wheels angular velocity
 figure()
@@ -131,7 +131,7 @@ subplot(3,1,3)
 theme(gcf,"light")
 
 fontname('Times New Roman');
-fontsize(9,"points");
+fontsize(10,"points");
 
 % Command torque
 figure()
@@ -158,7 +158,7 @@ subplot(3,1,3)
 theme(gcf,"light")
 
 fontname('Times New Roman');
-fontsize(9,"points");
+fontsize(10,"points");
 
 % Command current for torque rods
 figure()
@@ -185,7 +185,7 @@ subplot(3,1,3)
 theme(gcf,"light")
 
 fontname('Times New Roman');
-fontsize(9,"points");
+fontsize(10,"points");
 
 % Torque produced by the rod
 figure()
@@ -212,7 +212,47 @@ subplot(3,1,3)
 theme(gcf,"light")
 
 fontname('Times New Roman');
-fontsize(9,"points");
+fontsize(10,"points");
+
+% Plotting TRIAD determination vs. MEKF estimation
+figure()
+subplot(4,1,1)
+    plot(t, simOut.dataPacket.q1_est.Data, '-k')
+    hold on
+    plot(t, simOut.dataPacket.q1_triad.Data, '--r')
+    grid on
+    xlim([t(1) t(end)])
+    legend('MEKF', 'TRIAD', 'Location','northeast','Orientation','horizontal')
+    ylabel('q_1')
+
+subplot(4,1,2)
+    plot(t, simOut.dataPacket.q2_est.Data, '-k')
+    hold on
+    plot(t, simOut.dataPacket.q2_triad.Data, '--r')
+    grid on
+    xlim([t(1) t(end)])
+    ylabel('q_2')
+
+subplot(4,1,3)
+    plot(t, simOut.dataPacket.q3_est.Data, '-k')
+    hold on
+    plot(t, simOut.dataPacket.q3_triad.Data, '--r')
+    grid on
+    xlim([t(1) t(end)])
+    ylabel('q_3')
+
+subplot(4,1,4)
+    plot(t, simOut.dataPacket.q4_est.Data, '-k')
+    hold on
+    plot(t, simOut.dataPacket.q4_triad.Data, '--r')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('q_4')
+theme(gcf,"light")
+
+fontname('Times New Roman');
+fontsize(10,"points");
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Display Output
@@ -272,12 +312,13 @@ maxTorque = [maxMag(simOut.dataPacket.T1_cmd.Data), ...
 % Spin Rate (in RPM)
 maxSpeed_w = [maxMag(simOut.dataPacket.w1_wheels.Data), ... 
               maxMag(simOut.dataPacket.w2_wheels.Data), ...
-              maxMag(simOut.dataPacket.w3_wheels.Data)] * 9.549297;
+              maxMag(simOut.dataPacket.w3_wheels.Data)] * 10.549297;
 
 % Display results
 fprintf('\n--- Wheels Performance ---\n');
 fprintf('Maximum Angular Momentum Stored (each wheel)   = [%.4f %.4f %.4f] mN·m·s\n', maxMomentum);
 fprintf('Maximum Control Torque Applied (each wheel)    = [%.6f %.6f %.6f] mN·m\n', maxTorque);
 fprintf('Maximum Spin Rate (each wheel)                 = [%.3f %.3f %.3f] RPM\n', maxSpeed_w);
+
 
 end
