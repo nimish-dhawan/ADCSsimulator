@@ -232,6 +232,9 @@ subplot(4,1,2)
     grid on
     xlim([t(1) t(end)])
     ylabel('q_2')
+    annotation("textarrow", [0.4047 0.5031], [0.6224 0.5647],...
+                "String", "Eclipse", "FontName", "Times New Roman",...
+                "FontWeight", "normal")
 
 subplot(4,1,3)
     plot(t, simOut.dataPacket.q3_est.Data, '-k')
@@ -249,6 +252,90 @@ subplot(4,1,4)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('q_4')
+theme(gcf,"light")
+
+fontname('Times New Roman');
+fontsize(10,"points");
+
+% Plotting filter performance - quaternions
+figure()
+subplot(4,1,1)
+    plot(t, squeeze(simOut.dataPacket.dq1.Data), 'k')
+    grid on
+    xlim([t(1) t(end)])
+    ylabel('q_1')
+
+subplot(4,1,2)
+    plot(t, squeeze(simOut.dataPacket.dq2.Data), 'k')
+    grid on
+    xlim([t(1) t(end)])
+    ylabel('q_2')
+
+subplot(4,1,3)
+    plot(t, squeeze(simOut.dataPacket.dq3.Data), 'k')
+    grid on
+    xlim([t(1) t(end)])
+    ylabel('q_3')
+
+subplot(4,1,4)
+    plot(t, squeeze(simOut.dataPacket.dq4.Data), 'k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('q_4')
+theme(gcf,"light")
+
+fontname('Times New Roman');
+fontsize(10,"points");
+
+% Plotting filter performance - angular velocity
+figure()
+subplot(3,1,1)
+    plot(t, simOut.dataPacket.dw_x.Data, 'k')
+    grid on
+    xlim([t(1) t(end)])
+    ylabel('d\omega_{x}')
+
+subplot(3,1,2)
+    plot(t, simOut.dataPacket.dw_y.Data, 'k')
+    grid on
+    xlim([t(1) t(end)])
+    ylabel('d\omega_{y}')
+
+subplot(3,1,3)
+    plot(t, simOut.dataPacket.dw_z.Data, 'k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('d\omega_{z}')
+theme(gcf,"light")
+
+fontname('Times New Roman');
+fontsize(10,"points");
+
+% Plotting perturbation torques
+% Torque produced by the rod
+figure()
+subplot(3,1,1)
+plot(t, simOut.dataPacket.TEX_x.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('\tau_{ext,x} [N·m]')
+
+subplot(3,1,2)
+    plot(t, simOut.dataPacket.TEX_y.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('\tau_{ext,y} [N·m]')
+
+subplot(3,1,3)
+    plot(t, simOut.dataPacket.TEX_z.Data, '-k')
+    grid on
+    xlim([t(1) t(end)])
+    xlabel('Time [s]')
+    ylabel('\tau_{ext,z} [N·m]')
 theme(gcf,"light")
 
 fontname('Times New Roman');
