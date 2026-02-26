@@ -192,6 +192,6 @@ was   = inEclipse;
 estimate.q_est = q;
 estimate.w_est = w_meas - bias;
 estimate.b_est = bias;
-estimate.res = r;
+estimate.res   = r;
 
 end
