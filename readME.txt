@@ -2,17 +2,20 @@
 CUonOrbit ADCS Simulator v2.0 
 ========================================================
 Copyright
-Nimish Dhawan 2025
+Nimish Dhawan 2026
+========================================================
+This software is intended for research and educational purposes only.
+It is not certified for flight use. The authors assume no liability
+for damages resulting from the use of this software.
 ========================================================
 
 RUN ON MATLAB 2025b
 
-**Please ensure you do the following in the correct order:**
-
-REQUIRED TOOLBOX:
+REQUIRED TOOLKITS:
 	- Aerospace Toolbox
 	- Aerospace Blockset
 
+**Please ensure you do the following in the correct order:**
 
 1. Make a copy of this folder and call it "CUonOrbit_ADCS_app_FirstnameLastname" and paste it in your MATLAB environment.
 2. In the command window enter "ADCS_gui". This command loads up the GUI.
