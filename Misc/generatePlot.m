@@ -36,6 +36,7 @@ subplot(3,1,3)
     xlim([t(1) t(end)])
     xlabel('Time [s]')
     ylabel('\omega_z [rad/s]')
+    % ylim([-1,1])
 theme(gcf,"light")
 
 fontname('Times New Roman');
@@ -314,7 +315,6 @@ fontname('Times New Roman');
 fontsize(10,"points");
 
 % Plotting perturbation torques
-% Torque produced by the rod
 figure()
 subplot(3,1,1)
 plot(t, simOut.dataPacket.TEX_x.Data, '-k')
@@ -335,7 +335,18 @@ subplot(3,1,3)
     grid on
     xlim([t(1) t(end)])
     xlabel('Time [s]')
-    ylabel('\tau_{ext,z} [N·m]')
+    ylabel('\tau_{ext,z} [N·m]');
+    % ylim([-1,1]);
+theme(gcf,"light")
+
+fontname('Times New Roman');
+fontsize(10,"points");
+
+% Total angular momentum magnitude in ECI
+figure()
+plot(t, simOut.dataPacket.h_tot_I.Data, 'k')
+grid on; xlim([t(1) t(end)])
+xlabel('Time [s]'); ylabel('h_{tot,I} [Nms]')
 theme(gcf,"light")
 
 fontname('Times New Roman');
