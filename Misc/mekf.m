@@ -23,11 +23,12 @@
 function [estimate] = mekf(q_triad, w_meas, dt, s_I, ...
                             b_I, s_B, b_B, R, sigma_g, sigma_b, inEclipse)
 
-persistent bias P q was
+%% Initialization
+persistent bias 
+persistent P 
+persistent q 
+persistent was
 
-estimate = struct;
-
-% Initializing parameters
 if isempty(q)
     q    = q_triad;
     bias = 1e-05*ones(3,1);
@@ -40,13 +41,14 @@ h = zeros(6,1);
 H = zeros(6,6);
 z = zeros(6,1);
 K = zeros(6,6);
+estimate = struct;
 
 % Logic to update attitude after exiting eclipse
 if (was == 1) && (inEclipse == 0)
     q = q_triad;
 end
 
-% Helper functions
+% Quaternion to DCM
 quat2C = @(q) (q(4)^2-q(1:3)'*q(1:3))*eye(3) + 2*(q(1:3)*q(1:3)')...
                - 2*q(4)*skew(q(1:3));
 
@@ -56,16 +58,16 @@ s_B = s_B/norm(s_B);
 b_I = b_I/norm(b_I);
 b_B = b_B/norm(b_B);
 
-% ========================================================================
-% Propagation
-
-% Initializing
+% Reconstructing angular velocity
 w_hat = w_meas - bias;
 w_hat = w_hat(:);
 w_hat = w_hat(1:3);
 
 wn    = norm(w_hat);
 w_sk  = skew(w_hat);
+
+
+%% Propagation ============================================================
 
 % Priori estimates using Eqs. (7.53)-(7.60) given by Crassidis and Junkins
 if wn < 1e-8 % Small angle assumption
@@ -101,8 +103,7 @@ G   = [-eye(3), zeros(3); zeros(3), eye(3)];
 
 P_minus = Phi*P*Phi' + G*Q*G';
 
-% ========================================================================
-% Correction
+%% Correction =============================================================
 C_BI = quat2C(q_minus);
 
 if inEclipse == 0 % When not in eclipse, use both sensor data
@@ -124,23 +125,12 @@ if inEclipse == 0 % When not in eclipse, use both sensor data
     % Kalman Gain
     S = H*P_minus*H' + R;
     K = (P_minus * H') / S;
-    
+
     dx_plus     = K*r;
     dth_plus    = dx_plus(1:3);
     db_plus     = dx_plus(4:6);
     
     P = P_minus * (eye(6) - K*H);
-
-    % % Mahalanobis distance (complex sqrt)
-    % dM2        = r.'*(S \ r);
-    % dM         = sqrt(dM2);
-    % isOutlier  = dM > chi2inv(0.997, length(r));
-    % 
-    % if isOutlier == 1
-    %     P        = P_minus;
-    %     dth_plus = [0;0;0];
-    %     db_plus  = [0;0;0];
-    % end
 
 else % When in eclipse, only use magnetometer data
     % Predicted Measurement
@@ -165,22 +155,9 @@ else % When in eclipse, only use magnetometer data
     
     P = P_minus * (eye(6) - K(:,4:6)*H(4:6,:));
 
-    % % Mahalanobis distance (complex sqrt)
-    % dM2        = r.'*(S \ r);
-    % dM         = sqrt(dM2);
-    % isOutlier  = dM > chi2inv(0.997, length(r));
-    % 
-    % if isOutlier == 1
-    %     P        = P_minus;
-    %     dth_plus = [0;0;0];
-    %     db_plus  = [0;0;0];
-    % end
-
 end
 
-
-% ========================================================================
-% Reset
+%% Reset ==================================================================
 q     = q_minus + 0.5 *...
         [q_minus(4)*eye(3)+skew(q_minus(1:3));
         -q_minus(1:3)'] * dth_plus;

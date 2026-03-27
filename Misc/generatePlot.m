@@ -1,4 +1,7 @@
 % Nimish Dhawan, 2026
+% Description:
+% Generates plots for the simulation output. Written to be used with the
+% ADCS GUI
 
 function generatePlot(app)
 
